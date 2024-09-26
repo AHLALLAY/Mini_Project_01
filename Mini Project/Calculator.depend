@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1727287134 source:c:\users\ycode\desktop\mini project\calculator\calculator.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+
+1727287007 source:c:\users\ycode\desktop\mini project\calculator\untitled2.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+
