@@ -82,7 +82,6 @@ int main() {
                         exist = 1;
                         break;
                     }
-                    system("pause");
                 }
                 if (!exist) {
                     printf("The book does not exist.\n");
