@@ -17,7 +17,10 @@ obj/
 *.save
 *~
 
-#IDE
-.vscode
+# IDE
 .idea
 .cursor
+.vscode/*
+!.vscode/tasks.json
+!.vscode/c_cpp_properties.json
+!.vscode/extensions.json

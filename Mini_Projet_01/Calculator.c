@@ -67,7 +67,7 @@ int main() {
                 printf("Second number: ");
                 scanf("%d", &b);
                 if (b != 0) {
-                    printf("The division is %.2f\n", a / b);
+                    printf("The division is %.2f\n", (float)a / b);
                 } else {
                     printf("ERROR: Check the denominator!\n");
                 }
