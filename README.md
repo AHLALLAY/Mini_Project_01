@@ -79,8 +79,8 @@ Carnet de contacts (nom, téléphone, e-mail) avec menus imbriqués.
 ## Prérequis
 
 - Windows
-- [Code::Blocks](https://www.codeblocks.org/) avec compilateur **GCC / MinGW**
-- [Visual Studio Code](https://code.visualstudio.com/) **ou** [Code::Blocks](https://www.codeblocks.org/)
+- [GCC / MSYS2](https://www.msys2.org/) (`gcc` dans le PATH)
+- [Visual Studio Code](https://code.visualstudio.com/) + extension **C/C++** (Microsoft)
 
 Les programmes utilisent `system("cls")`, `system("color")` et `system("pause")` : ils sont prévus pour **Windows uniquement**.
 
@@ -90,21 +90,13 @@ L’interface console est en **anglais** (ASCII) pour éviter les problèmes d�
 
 ## Compilation et exécution
 
-### Avec Code::Blocks (recommandé)
-
-1. Ouvrir le fichier `.cbp` du projet.
-2. **Build → Build** (`F9`).
-3. **Build → Run** (`Ctrl+F10`).
-
 ### Avec Visual Studio Code
 
-1. Ouvrir le dossier `C_Mini_Projects` (Fichier → Ouvrir le dossier).
-2. Installer l’extension **C/C++** (Microsoft).
-3. Ouvrir le Terminal intégré (`Ctrl+\``) et lancer les commandes `gcc` ci-dessous.
+1. Ouvrir le dossier `C_Mini_Projects`.
+2. Compiler : `Ctrl+Shift+B` (Calculator) ou **Terminal → Run Task…** (Library / Contacts).
+3. Lancer dans le terminal : `.\Calculator.exe`, `.\Library.exe` ou `.\Contacts.exe`.
 
-Le projet 02 n’a pas encore de fichier `.cbp` : ouvrir `Library.c` puis **Build → Build / Run**.
-
-### En ligne de commande (optionnel)
+### En ligne de commande
 
 ```bash
 gcc -Wall -Wextra -std=c99 Mini_Projet_01/Calculator.c -o Calculator -lm
@@ -120,6 +112,10 @@ gcc -Wall -Wextra -std=c99 Mini_Projet_03/Contacts.c -o Contacts
 C_Mini_Projects/
 ├── .gitignore
 ├── README.md
+├── .vscode/
+│   ├── tasks.json
+│   ├── c_cpp_properties.json
+│   └── extensions.json
 ├── Mini_Projet_01/
 │   ├── Calculator.c
 │   └── Calculator.cbp

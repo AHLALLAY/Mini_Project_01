@@ -1,0 +1,52 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build Calculator",
+      "type": "shell",
+      "command": "gcc",
+      "args": [
+        "-Wall",
+        "-Wextra",
+        "-std=c99",
+        "Mini_Projet_01/Calculator.c",
+        "-o",
+        "Calculator.exe",
+        "-lm"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": ["$gcc"]
+    },
+    {
+      "label": "build Library",
+      "type": "shell",
+      "command": "gcc",
+      "args": [
+        "-Wall",
+        "-Wextra",
+        "-std=c99",
+        "Mini_Projet_02/Library.c",
+        "-o",
+        "Library.exe"
+      ],
+      "problemMatcher": ["$gcc"]
+    },
+    {
+      "label": "build Contacts",
+      "type": "shell",
+      "command": "gcc",
+      "args": [
+        "-Wall",
+        "-Wextra",
+        "-std=c99",
+        "Mini_Projet_03/Contacts.c",
+        "-o",
+        "Contacts.exe"
+      ],
+      "problemMatcher": ["$gcc"]
+    }
+  ]
+}
