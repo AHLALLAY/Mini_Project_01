@@ -5,18 +5,18 @@
 void head() {
     system("cls");
     system("color 0c");
-    printf("/================================= Calculatrice =================================\\\n");
-    printf("|                                                                               |\n");
-    printf("|  1- Addition : Ajouter deux ou plusieurs nombres.                             |\n");
-    printf("|  2- Soustraction : Soustraire deux nombres.                                   |\n");
-    printf("|  3- Multiplication : Multiplier deux ou plusieurs nombres.                    |\n");
-    printf("|  4- Division : Diviser deux nombres.                                          |\n");
-    printf("|  5- Moyenne : Calculer la moyenne d'une série de nombres.                     |\n");
-    printf("|  6- Valeur absolue : Calculer la valeur absolue d'un nombre.                  |\n");
-    printf("|  7- Exponentiation : Calculer un nombre à une certaine puissance.             |\n");
-    printf("|  8- Racine carrée : Calculer la racine carrée d'un nombre positif.            |\n");
-    printf("|  0- Quitter                                                                   | \n");
-    printf("\\===============================================================================/\n");
+    printf("/================================= Calculator ================================\\\n");
+    printf("|                                                                             |\n");
+    printf("|  1- Addition : Add two or more numbers.                                     |\n");
+    printf("|  2- Subtraction : Subtract two numbers.                                     |\n");
+    printf("|  3- Multiplication : Multiply two or more numbers.                          |\n");
+    printf("|  4- Division : Divide two numbers.                                          |\n");
+    printf("|  5- Average : Compute the average of a list of numbers.                     |\n");
+    printf("|  6- Absolute value : Compute the absolute value of a number.                |\n");
+    printf("|  7- Exponentiation : Raise a number to a given power.                       |\n");
+    printf("|  8- Square root : Compute the square root of a positive number.             |\n");
+    printf("|  0- Exit                                                                    |\n");
+    printf("\\=============================================================================/\n");
 }
 
 int main() {
@@ -25,105 +25,105 @@ int main() {
 
     while (answer == 'y') {
         head();
-        printf("\n\tTapez le numéro de votre choix : ");
+        printf("\n\tEnter the number of your choice: ");
         scanf("%d", &choix);
 
         switch (choix) {
             case 1: // Addition
-                printf("Combien de nombres avez-vous ? ");
+                printf("How many numbers do you have? ");
                 scanf("%d", &x);
                 int sum = 0;
                 for (int i = 0; i < x; i++) {
-                    printf("%dème nombre : ", i + 1);
+                    printf("Number %d: ", i + 1);
                     scanf("%d", &a);
                     sum += a;
                 }
-                printf("La somme est %d\n", sum);
+                printf("The sum is %d\n", sum);
                 break;
 
-            case 2: // Soustraction
-                printf("1er nombre : ");
+            case 2: // Subtraction
+                printf("First number: ");
                 scanf("%d", &a);
-                printf("2ème nombre : ");
+                printf("Second number: ");
                 scanf("%d", &b);
-                printf("La soustraction est %d\n", a - b);
+                printf("The subtraction is %d\n", a - b);
                 break;
 
             case 3: // Multiplication
-                printf("Combien de nombres avez-vous ? ");
+                printf("How many numbers do you have? ");
                 scanf("%d", &x);
                 int product = 1;
                 for (int i = 0; i < x; i++) {
-                    printf("%dème nombre : ", i + 1);
+                    printf("Number %d: ", i + 1);
                     scanf("%d", &a);
                     product *= a;
                 }
-                printf("Le produit est %d\n", product);
+                printf("The product is %d\n", product);
                 break;
 
             case 4: // Division
-                printf("1er nombre : ");
+                printf("First number: ");
                 scanf("%d", &a);
-                printf("2ème nombre : ");
+                printf("Second number: ");
                 scanf("%d", &b);
                 if (b != 0) {
-                    printf("La division est %d\n", a / b);
+                    printf("The division is %d\n", a / b);
                 } else {
-                    printf("ERROR ===> Vérifiez le dénominateur !\n");
+                    printf("ERROR: Check the denominator!\n");
                 }
                 break;
 
-            case 5: // Moyenne
-                printf("Combien de nombres avez-vous ? ");
+            case 5: // Average
+                printf("How many numbers do you have? ");
                 scanf("%d", &x);
                 sum = 0;
                 for (int i = 0; i < x; i++) {
-                    printf("%dème nombre : ", i + 1);
+                    printf("Number %d: ", i + 1);
                     scanf("%d", &a);
                     sum += a;
                 }
-                printf("La moyenne est %.2f\n", (float)sum / x);
+                printf("The average is %.2f\n", (float)sum / x);
                 break;
 
-            case 6: // Valeur absolue
-                printf("Tapez un nombre : ");
+            case 6: // Absolute value
+                printf("Enter a number: ");
                 scanf("%d", &a);
-                printf("La valeur absolue de %d est %d\n", a, abs(a));
+                printf("The absolute value of %d is %d\n", a, abs(a));
                 break;
 
             case 7: // Exponentiation
-                printf("Tapez la base : ");
+                printf("Enter the base: ");
                 scanf("%d", &base);
-                printf("Tapez l'exposant : ");
+                printf("Enter the exponent: ");
                 scanf("%d", &puissance);
                 int result = 1;
                 for (int i = 0; i < puissance; i++) {
                     result *= base;
                 }
-                printf("L'exponentiation de %d à la puissance %d est %d\n", base, puissance, result);
+                printf("%d to the power of %d is %d\n", base, puissance, result);
                 break;
 
-            case 8: // Racine carrée
-                printf("Tapez un nombre positif : ");
+            case 8: // Square root
+                printf("Enter a positive number: ");
                 scanf("%d", &a);
                 if (a >= 0) {
-                    printf("La racine carrée de %d est %.2f\n", a, sqrt(a));
+                    printf("The square root of %d is %.2f\n", a, sqrt(a));
                 } else {
-                    printf("ERROR ===> Vous devez saisir un nombre positif !\n");
+                    printf("ERROR: You must enter a positive number!\n");
                 }
                 break;
 
-            case 0: // Quitter
-                printf("À bientôt !\n");
+            case 0: // Exit
+                printf("Goodbye!\n");
                 exit(0);
                 break;
 
             default:
-                printf("La valeur que vous avez saisie n'est pas dans le menu.\n");
+                printf("The value you entered is not in the menu.\n");
                 break;
         }
 
-        printf("Voulez-vous continuer ? (y/n) ");
+        printf("Do you want to continue? (y/n) ");
         scanf(" %c", &answer);
     }
 

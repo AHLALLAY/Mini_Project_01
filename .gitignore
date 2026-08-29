@@ -1,0 +1,23 @@
+# Binaires / objets
+*.exe
+*.o
+*.out
+*.dll
+*.a
+
+# Code::Blocks (générés)
+*.depend
+*.layout
+*.cbp.bak
+Thumbs.db
+bin/
+obj/
+
+# Backups éditeur
+*.save
+*~
+
+#IDE
+.vscode
+.idea
+.cursor

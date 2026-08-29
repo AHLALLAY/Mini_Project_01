@@ -26,11 +26,17 @@
 				<Linker>
 					<Add option="-s" />
 				</Linker>
+				<Linker>
+					<Add option="-lm" />
+				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="Calculator.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
