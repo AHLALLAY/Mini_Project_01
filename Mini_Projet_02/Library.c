@@ -29,6 +29,10 @@ int main() {
                 printf("======== Add a Book to Stock ========\n");
                 printf("How many books do you want to add: ");
                 scanf("%d", &n);
+                if (n < 1 || n > 100 - livre) {
+                    printf("You need a number in this range [1, %d].\n", 100 - livre);
+                    break;
+                }
                 getchar();
                 for (int i = 0; i < n; i++) {
                     printf("Enter the title: ");
