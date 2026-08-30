@@ -32,6 +32,10 @@ int main() {
             case 1: // Addition
                 printf("How many numbers do you have? ");
                 scanf("%d", &x);
+                if(x<1){
+                    printf("Invalide number.\n");
+                    break;
+                }
                 int sum = 0;
                 for (int i = 0; i < x; i++) {
                     printf("Number %d: ", i + 1);
@@ -52,6 +56,10 @@ int main() {
             case 3: // Multiplication
                 printf("How many numbers do you have? ");
                 scanf("%d", &x);
+                if(x<1){
+                    printf("Invalide number.\n");
+                    break;
+                }
                 int product = 1;
                 for (int i = 0; i < x; i++) {
                     printf("Number %d: ", i + 1);
@@ -76,6 +84,10 @@ int main() {
             case 5: // Average
                 printf("How many numbers do you have? ");
                 scanf("%d", &x);
+                if(x<1){
+                    printf("Invalide number.\n");
+                    break;
+                }   
                 sum = 0;
                 for (int i = 0; i < x; i++) {
                     printf("Number %d: ", i + 1);
