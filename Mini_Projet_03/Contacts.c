@@ -10,6 +10,7 @@ typedef struct {
 
 int main() {
     Contact c[100]; // fixed-size array
+    Contact swap[100];
     int compteur = 0;
     int choix;
 
@@ -121,27 +122,63 @@ int main() {
                             system("pause");
                             break;
                         }
-                        case 2:
-                        case 3: {
-                            // sort contacts
-                            for (int i = 0; i < compteur - 1; i++) {
-                                for (int j = i + 1; j < compteur; j++) {
-                                    if ((display_choice == 2 && strcmp(c[i].name, c[j].name) > 0) ||
-                                        (display_choice == 3 && strcmp(c[i].name, c[j].name) < 0)) {
-                                        Contact temp = c[i];
-                                        c[i] = c[j];
-                                        c[j] = temp;
+                        case 2:{
+                            if(compteur ==0){
+                                printf("No contact to display.\n");
+                            }else{   
+                                // Copy array list
+                                for(int i = 0; i <compteur; i++){
+                                    swap[i] = c[i];
+                                }
+                                // sort contacts
+                                for (int i = 0; i < compteur - 1; i++) {
+                                    for (int j = i + 1; j < compteur; j++) {
+                                        if (strcmp(swap[i].name, swap[j].name) > 0) {
+                                            Contact temp = swap[i];
+                                            swap[i] = swap[j];
+                                            swap[j] = temp;
+                                        }
                                     }
                                 }
+                                // display after sort
+                                printf("========= Contact List =========\n");
+                                printf("| %-25s | %-15s | %-30s |\n", "Name", "Phone", "Email");
+                                printf("+---------------------------+-----------------+-------------------------------+\n");
+                                for (int i = 0; i < compteur; i++) {
+                                    printf("| %-25s | %-15s | %-30s |\n", swap[i].name, swap[i].tele, swap[i].mail);
+                                }
+                                printf("+---------------------------+-----------------+-------------------------------+\n");
                             }
-                            // display after sort
-                            printf("========= Contact List =========\n");
-                            printf("| %-25s | %-15s | %-30s |\n", "Name", "Phone", "Email");
-                            printf("+---------------------------+-----------------+-------------------------------+\n");
-                            for (int i = 0; i < compteur; i++) {
-                                printf("| %-25s | %-15s | %-30s |\n", c[i].name, c[i].tele, c[i].mail);
+                            system("pause");
+                            break;
+                        }
+                        case 3: {
+                            if(compteur == 0){
+                                printf("No contact to display.\n");
+                            }else{
+                                // Copy array list
+                                for(int i = 0; i <compteur; i++){
+                                    swap[i] = c[i];
+                                }
+                                // sort contacts
+                                for (int i = 0; i < compteur - 1; i++) {
+                                    for (int j = i + 1; j < compteur; j++) {
+                                        if (strcmp(swap[i].name, swap[j].name) < 0) {
+                                            Contact temp = swap[i];
+                                            swap[i] = swap[j];
+                                            swap[j] = temp;
+                                        }
+                                    }
+                                }
+                                // display after sort
+                                printf("========= Contact List =========\n");
+                                printf("| %-25s | %-15s | %-30s |\n", "Name", "Phone", "Email");
+                                printf("+---------------------------+-----------------+-------------------------------+\n");
+                                for (int i = 0; i < compteur; i++) {
+                                    printf("| %-25s | %-15s | %-30s |\n", swap[i].name, swap[i].tele, swap[i].mail);
+                                }
+                                printf("+---------------------------+-----------------+-------------------------------+\n");
                             }
-                            printf("+---------------------------+-----------------+-------------------------------+\n");
                             system("pause");
                             break;
                         }
@@ -230,12 +267,14 @@ int main() {
                 }
                 break;
             }
-            case 6:
+            case 6: {
                 printf("Total number of contacts: %d\n", compteur);
                 break;
-            case 7:
+            }
+            case 7: {
                 printf("Goodbye!\n");
                 break;
+            }
             default:
                 printf("Invalid choice!\n");
                 break;
