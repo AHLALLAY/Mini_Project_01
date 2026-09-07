@@ -123,18 +123,14 @@ void square_root(){
 
 void close(){
     printf("Goodbye!\n");
-    exit(0);
 }
 
 int main() {
     int choix;
-    char answer = 'y';
-
-    while (answer == 'y') {
+    do {
         head();
         printf("\n\tEnter the number of your choice: ");
         scanf("%d", &choix);
-
         switch (choix) {
             case 1: // Addition
                 addition();
@@ -167,10 +163,10 @@ int main() {
                 printf("The value you entered is not in the menu.\n");
                 break;
         }
-
-        printf("Do you want to continue? (y/n) ");
-        scanf(" %c", &answer);
-    }
+        if(choix !=0){
+            system("pause");
+        }
+    }while(choix !=0);
 
     return 0;
 }
