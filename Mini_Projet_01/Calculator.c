@@ -19,13 +19,21 @@ void head() {
     printf("\\=============================================================================/\n");
 }
 
-void addition(){
+int demander_combien(){
     int x;
-    float a, sum = 0.0f;
     printf("How many numbers do you have? ");
     scanf("%d", &x);
     if(x<1){
         printf("Invalid number.\n");
+        return -1;
+    }
+    return x;
+}
+
+void addition(){
+    float a, sum = 0.0f;
+    int x = demander_combien();
+    if(x<1){
         return;
     }
     for (int i = 0; i < x; i++) {
@@ -46,13 +54,9 @@ void subtraction(){
 }
 
 void multiplication(){
-    int x;
+    int x = demander_combien();
     float a = 0.0f, product = 1.0f;
-
-    printf("How many numbers do you have? ");
-    scanf("%d", &x);
     if(x<1){
-        printf("Invalid number.\n");
         return;
     }
     for (int i = 0; i < x; i++) {
@@ -77,12 +81,9 @@ void division(){
 }
 
 void average(){
-    int x;
+    int x = demander_combien();
     float a, sum = 0.0f;
-    printf("How many numbers do you have? ");
-    scanf("%d", &x);
     if(x<1){
-        printf("Invalid number.\n");
         return;
     }
     for (int i = 0; i < x; i++) {
