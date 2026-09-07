@@ -19,8 +19,115 @@ void head() {
     printf("\\=============================================================================/\n");
 }
 
+void addition(){
+    int x;
+    float a, sum = 0.0f;
+    printf("How many numbers do you have? ");
+    scanf("%d", &x);
+    if(x<1){
+        printf("Invalid number.\n");
+        return;
+    }
+    for (int i = 0; i < x; i++) {
+        printf("Number %d: ", i + 1);
+        scanf("%f", &a);
+        sum += a;
+    }
+    printf("The sum is %.2f\n", sum);
+}
+
+void subtraction(){
+    float a, b;
+    printf("First number: ");
+    scanf("%f", &a);
+    printf("Second number: ");
+    scanf("%f", &b);
+    printf("The subtraction is %.2f\n", a - b);
+}
+
+void multiplication(){
+    int x;
+    float a = 0.0f, product = 1.0f;
+
+    printf("How many numbers do you have? ");
+    scanf("%d", &x);
+    if(x<1){
+        printf("Invalid number.\n");
+        return;
+    }
+    for (int i = 0; i < x; i++) {
+        printf("Number %d: ", i + 1);
+        scanf("%f", &a);
+        product *= a;
+    }
+    printf("The product is %.2f\n", product);
+}
+
+void division(){
+    float a, b;
+    printf("First number: ");
+    scanf("%f", &a);
+    printf("Second number: ");
+    scanf("%f", &b);
+    if (b != 0) {
+        printf("The division is %.2f\n", a / b);
+    } else {
+        printf("ERROR: Check the denominator!\n");
+    }
+}
+
+void average(){
+    int x;
+    float a, sum = 0.0f;
+    printf("How many numbers do you have? ");
+    scanf("%d", &x);
+    if(x<1){
+        printf("Invalid number.\n");
+        return;
+    }
+    for (int i = 0; i < x; i++) {
+        printf("Number %d: ", i + 1);
+        scanf("%f", &a);
+        sum += a;
+    }
+    printf("The average is %.2f\n", sum / x);
+}
+
+void absolute_value(){
+    float a;
+    printf("Enter a number: ");
+    scanf("%f", &a);
+    printf("The absolute value of %f is %f\n", a, fabsf(a));
+}
+
+void exponentiation(){
+    float base, puissance;
+
+    printf("Enter the base: ");
+    scanf("%f", &base);
+    printf("Enter the exponent: ");
+    scanf("%f", &puissance);
+    printf("%.2f to the power of %.2f is %.2f\n", base, puissance, pow(base, puissance));
+}
+
+void square_root(){
+    float a;
+    printf("Enter a positive number: ");
+    scanf("%f", &a);
+    if (a >= 0) {
+        printf("The square root of %f is %.2f\n", a, sqrt(a));
+    } else {
+        printf("ERROR: You must enter a positive number!\n");
+    }
+}
+
+void close(){
+    printf("Goodbye!\n");
+    exit(0);
+}
+
 int main() {
-    int choix, x, base, puissance, a, b;
+    int choix;
     char answer = 'y';
 
     while (answer == 'y') {
@@ -30,106 +137,32 @@ int main() {
 
         switch (choix) {
             case 1: // Addition
-                printf("How many numbers do you have? ");
-                scanf("%d", &x);
-                if(x<1){
-                    printf("Invalide number.\n");
-                    break;
-                }
-                int sum = 0;
-                for (int i = 0; i < x; i++) {
-                    printf("Number %d: ", i + 1);
-                    scanf("%d", &a);
-                    sum += a;
-                }
-                printf("The sum is %d\n", sum);
+                addition();
                 break;
-
             case 2: // Subtraction
-                printf("First number: ");
-                scanf("%d", &a);
-                printf("Second number: ");
-                scanf("%d", &b);
-                printf("The subtraction is %d\n", a - b);
+                subtraction();
                 break;
-
             case 3: // Multiplication
-                printf("How many numbers do you have? ");
-                scanf("%d", &x);
-                if(x<1){
-                    printf("Invalide number.\n");
-                    break;
-                }
-                int product = 1;
-                for (int i = 0; i < x; i++) {
-                    printf("Number %d: ", i + 1);
-                    scanf("%d", &a);
-                    product *= a;
-                }
-                printf("The product is %d\n", product);
+                multiplication();
                 break;
-
             case 4: // Division
-                printf("First number: ");
-                scanf("%d", &a);
-                printf("Second number: ");
-                scanf("%d", &b);
-                if (b != 0) {
-                    printf("The division is %.2f\n", (float)a / b);
-                } else {
-                    printf("ERROR: Check the denominator!\n");
-                }
+                division();
                 break;
-
             case 5: // Average
-                printf("How many numbers do you have? ");
-                scanf("%d", &x);
-                if(x<1){
-                    printf("Invalide number.\n");
-                    break;
-                }   
-                sum = 0;
-                for (int i = 0; i < x; i++) {
-                    printf("Number %d: ", i + 1);
-                    scanf("%d", &a);
-                    sum += a;
-                }
-                printf("The average is %.2f\n", (float)sum / x);
+                average();
                 break;
-
             case 6: // Absolute value
-                printf("Enter a number: ");
-                scanf("%d", &a);
-                printf("The absolute value of %d is %d\n", a, abs(a));
+                absolute_value();
                 break;
-
             case 7: // Exponentiation
-                printf("Enter the base: ");
-                scanf("%d", &base);
-                printf("Enter the exponent: ");
-                scanf("%d", &puissance);
-                int result = 1;
-                for (int i = 0; i < puissance; i++) {
-                    result *= base;
-                }
-                printf("%d to the power of %d is %d\n", base, puissance, result);
+                exponentiation();
                 break;
-
             case 8: // Square root
-                printf("Enter a positive number: ");
-                scanf("%d", &a);
-                if (a >= 0) {
-                    printf("The square root of %d is %.2f\n", a, sqrt(a));
-                } else {
-                    printf("ERROR: You must enter a positive number!\n");
-                }
+                square_root();
                 break;
-
             case 0: // Exit
-                printf("Goodbye!\n");
-                exit(0);
+                close();
                 break;
-
             default:
                 printf("The value you entered is not in the menu.\n");
                 break;
