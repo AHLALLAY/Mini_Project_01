@@ -2,89 +2,244 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define ASCENDING  1
+#define DESCENDING 2
+
 typedef struct {
     char name[50];
-    char tele[15];
-    char mail[60];
+    char phone[15];
+    char email[60];
 } Contact;
 
+void show_main_menu(){
+    system("cls");
+    system("color 0F");
+    printf("============== Main Menu ==============\n");
+    printf("1- Add Contacts\n");
+    printf("2- Display Contacts\n");
+    printf("3- Edit Contacts\n");
+    printf("4- Delete Contacts\n");
+    printf("5- Search Contacts\n");
+    printf("6- Statistics\n");
+    printf("7- Exit\n");
+}
+
+void show_add_menu(){
+    system("cls");
+    printf("============== Add Menu ==============\n");
+    printf("1- Add one Contact\n");
+    printf("2- Add several Contacts\n");
+    printf("3- Back\n");
+}
+
+void show_display_menu(){
+    system("cls");
+    printf("============== Display Menu ==============\n");
+    printf("1- Simple display\n");
+    printf("2- Display in ascending order\n");
+    printf("3- Display in descending order\n");
+    printf("4- Back\n");
+}
+
+int ask_count(){
+    int count;
+    printf("How many contacts do you have? ");
+    scanf("%d", &count);
+    if(count<1){
+        printf("Invalid number.\n");
+        return -1;
+    }
+    return count;
+}
+
+void read_line(char *text, int size){
+    fgets(text, size, stdin);
+    text[strcspn(text, "\n")] = 0;
+}
+
+void copy_contacts(Contact destination[], Contact source[], int count){
+    for(int i = 0; i < count; i++){
+        destination[i] = source[i];
+    }
+}
+
+void sort_contacts(Contact contacts[], int count, int order){
+    for (int i = 0; i < count - 1; i++) {
+        for (int j = i + 1; j < count; j++) {
+            int comparison = strcmp(contacts[i].name, contacts[j].name);
+            if((order == ASCENDING && comparison > 0)||(order == DESCENDING && comparison < 0)) {
+                Contact temp = contacts[i];
+                contacts[i] = contacts[j];
+                contacts[j] = temp;
+            }
+        }
+    }
+}
+
+void show_contacts(Contact contacts[], int count){
+    printf("========= Contact List =========\n");
+    printf("| %-25s | %-15s | %-30s |\n", "Name", "Phone", "Email");
+    printf("+---------------------------+-----------------+-------------------------------+\n");
+    for (int i = 0; i < count; i++) {
+        printf("| %-25s | %-15s | %-30s |\n", contacts[i].name, contacts[i].phone, contacts[i].email);
+    }
+    printf("+---------------------------+-----------------+-------------------------------+\n");
+}
+
+void show_sorted_contacts(Contact ordered[], Contact contacts[], int count, int order){
+    if(count == 0){
+        printf("No contact to display.\n");
+    }else{
+        copy_contacts(ordered, contacts, count);
+        sort_contacts(ordered, count, order);
+        show_contacts(ordered, count);
+    }
+    system("pause");
+}
+
+void add_one_contact(Contact contacts[], int *count){
+    if (*count < 100) {
+        printf("Name: ");
+        read_line(contacts[*count].name, sizeof(contacts[*count].name));
+        printf("Phone: ");
+        read_line(contacts[*count].phone, sizeof(contacts[*count].phone));
+        printf("Email: ");
+        read_line(contacts[*count].email, sizeof(contacts[*count].email));
+        (*count)++;
+        printf("Contact added successfully.\n");
+    } else {
+        printf("/_\\ Memory is full !!\n");
+    }
+}
+
+void add_many_contacts(Contact contacts[], int *count){
+    int how_many = ask_count();
+    if(how_many < 1) return;
+    if (how_many > 100 - *count) {
+        printf("You need a number in this range [1, %d].\n", 100 - *count);
+        return;
+    }
+    getchar();
+    for (int i = 0; i < how_many; i++) {
+        add_one_contact(contacts, count);
+    }
+}
+
+void show_contact_list(Contact contacts[], int count){
+    if (count == 0) {
+        printf("No contact to display.\n");
+    } else {
+        show_contacts(contacts, count);
+    }
+    system("pause");
+}
+
+void edit_contact(Contact contacts[], int count){
+    printf("========= Edit Contact =========\n");
+    char name[50];
+    printf("Enter the name of the contact to edit: ");
+    read_line(name, sizeof(name));
+
+    int found = 0;
+    for (int i = 0; i < count; i++) {
+        if (strcmp(contacts[i].name, name) == 0) {
+            found = 1;
+            printf("New name: ");
+            read_line(contacts[i].name, sizeof(contacts[i].name));
+            printf("New phone: ");
+            read_line(contacts[i].phone, sizeof(contacts[i].phone));
+            printf("New email: ");
+            read_line(contacts[i].email, sizeof(contacts[i].email));
+            printf("Contact updated successfully.\n");
+            break;
+        }
+    }
+    if (!found) {
+        printf("Contact not found.\n");
+    }
+}
+
+void delete_contact(Contact contacts[], int *count){
+    printf("========= Delete Contact =========\n");
+    char name[50];
+    printf("Enter the name of the contact to delete: ");
+    read_line(name, sizeof(name));
+
+    int found = 0;
+    for (int i = 0; i < *count; i++) {
+        if (strcmp(contacts[i].name, name) == 0) {
+            found = 1;
+            for (int j = i; j < *count - 1; j++) {
+                contacts[j] = contacts[j + 1];
+            }
+            (*count)--;
+            printf("Contact deleted successfully.\n");
+            return;
+        }
+    }
+    if (!found) {
+        printf("Contact not found.\n");
+    }
+}
+
+void search_contact(Contact contacts[], int count){
+    printf("========= Search Contact =========\n");
+    char name[50];
+    printf("Enter the name of the contact to search: ");
+    read_line(name, sizeof(name));
+
+    int found = 0;
+    for (int i = 0; i < count; i++) {
+        if (strcmp(contacts[i].name, name) == 0) {
+            found = 1;
+            printf("Contact found:\n");
+            printf("Name: %s\n", contacts[i].name);
+            printf("Phone: %s\n", contacts[i].phone);
+            printf("Email: %s\n", contacts[i].email);
+            return;
+        }
+    }
+    if (!found) {
+        printf("Contact not found.\n");
+    }
+}
+
+void show_contact_count(int count){
+    printf("Total number of contacts: %d\n", count);
+}
+
 int main() {
-    Contact c[100]; // fixed-size array
-    int compteur = 0;
-    int choix;
+    Contact contacts[100];
+    Contact ordered[100];
+    int count = 0;
+    int choice;
 
     do {
-        system("cls");
-        system("color 0F");
-        printf("============== Main Menu ==============\n");
-        printf("1- Add Contacts\n");
-        printf("2- Display Contacts\n");
-        printf("3- Edit Contacts\n");
-        printf("4- Delete Contacts\n");
-        printf("5- Search Contacts\n");
-        printf("6- Statistics\n");
-        printf("7- Exit\n");
+        show_main_menu();
         printf("Enter your choice: ");
-        scanf("%d", &choix);
-        getchar(); // clear leftover newline
+        scanf("%d", &choice);
+        getchar();
 
-        switch (choix) {
+        switch (choice) {
             case 1: {
                 int add_choice;
                 do {
-                    system("cls");
-                    printf("============== Add Menu ==============\n");
-                    printf("1- Add one Contact\n");
-                    printf("2- Add several Contacts\n");
-                    printf("3- Back\n");
+                    show_add_menu();
                     printf("Enter your choice: ");
                     scanf("%d", &add_choice);
-                    getchar(); // clear leftover newline
+                    getchar();
 
                     switch (add_choice) {
                         case 1: {
-                            if (compteur < 100) {
-                                printf("Name: ");
-                                fgets(c[compteur].name, sizeof(c[compteur].name), stdin);
-                                strtok(c[compteur].name, "\n"); // remove newline
-                                printf("Phone: ");
-                                fgets(c[compteur].tele, sizeof(c[compteur].tele), stdin);
-                                strtok(c[compteur].tele, "\n"); // remove newline
-                                printf("Email: ");
-                                fgets(c[compteur].mail, sizeof(c[compteur].mail), stdin);
-                                strtok(c[compteur].mail, "\n"); // remove newline
-                                compteur++;
-                                printf("Contact added successfully.\n");
-                            } else {
-                                printf("/_\\ Memory is full !!\n");
-                            }
+                            add_one_contact(contacts, &count);
                             break;
                         }
                         case 2: {
-                            int n;
-                            printf("How many contacts do you want to add? ");
-                            scanf("%d", &n);
-                            getchar(); // clear leftover newline
-                            for (int i = 0; i < n && compteur < 100; i++) {
-                                printf("Contact #%d\n", compteur + 1);
-                                printf("Name: ");
-                                fgets(c[compteur].name, sizeof(c[compteur].name), stdin);
-                                strtok(c[compteur].name, "\n");
-                                printf("Phone: ");
-                                fgets(c[compteur].tele, sizeof(c[compteur].tele), stdin);
-                                strtok(c[compteur].tele, "\n");
-                                printf("Email: ");
-                                fgets(c[compteur].mail, sizeof(c[compteur].mail), stdin);
-                                strtok(c[compteur].mail, "\n");
-                                compteur++;
-                            }
-                            if (compteur >= 100) {
-                                printf("/_\\ Memory is full !!\n");
-                            }
+                            add_many_contacts(contacts, &count);
                             break;
                         }
                         case 3:
-                            break; // Back
+                            break;
                         default:
                             printf("Invalid choice!\n");
                             break;
@@ -95,58 +250,26 @@ int main() {
             case 2: {
                 int display_choice;
                 do {
-                    system("cls");
-                    printf("============== Display Menu ==============\n");
-                    printf("1- Simple display\n");
-                    printf("2- Display in ascending order\n");
-                    printf("3- Display in descending order\n");
-                    printf("4- Back\n");
+                    show_display_menu();
                     printf("Enter your choice: ");
                     scanf("%d", &display_choice);
-                    getchar(); // clear leftover newline
+                    getchar();
 
                     switch (display_choice) {
                         case 1: {
-                            if (compteur == 0) {
-                                printf("No contact to display.\n");
-                            } else {
-                                printf("========= Contact List =========\n");
-                                printf("| %-25s | %-15s | %-30s |\n", "Name", "Phone", "Email");
-                                printf("+---------------------------+-----------------+-------------------------------+\n");
-                                for (int i = 0; i < compteur; i++) {
-                                    printf("| %-25s | %-15s | %-30s |\n", c[i].name, c[i].tele, c[i].mail);
-                                }
-                                printf("+---------------------------+-----------------+-------------------------------+\n");
-                            }
-                            system("pause");
+                            show_contact_list(contacts, count);
                             break;
                         }
-                        case 2:
+                        case 2:{
+                            show_sorted_contacts(ordered, contacts, count, ASCENDING);
+                            break;
+                        }
                         case 3: {
-                            // sort contacts
-                            for (int i = 0; i < compteur - 1; i++) {
-                                for (int j = i + 1; j < compteur; j++) {
-                                    if ((display_choice == 2 && strcmp(c[i].name, c[j].name) > 0) ||
-                                        (display_choice == 3 && strcmp(c[i].name, c[j].name) < 0)) {
-                                        Contact temp = c[i];
-                                        c[i] = c[j];
-                                        c[j] = temp;
-                                    }
-                                }
-                            }
-                            // display after sort
-                            printf("========= Contact List =========\n");
-                            printf("| %-25s | %-15s | %-30s |\n", "Name", "Phone", "Email");
-                            printf("+---------------------------+-----------------+-------------------------------+\n");
-                            for (int i = 0; i < compteur; i++) {
-                                printf("| %-25s | %-15s | %-30s |\n", c[i].name, c[i].tele, c[i].mail);
-                            }
-                            printf("+---------------------------+-----------------+-------------------------------+\n");
-                            system("pause");
+                            show_sorted_contacts(ordered, contacts, count, DESCENDING);
                             break;
                         }
                         case 4:
-                            break; // Back
+                            break;
                         default:
                             printf("Invalid choice!\n");
                             break;
@@ -155,93 +278,31 @@ int main() {
                 break;
             }
             case 3: {
-                printf("========= Edit Contact =========\n");
-                char nom[50];
-                printf("Enter the name of the contact to edit: ");
-                fgets(nom, sizeof(nom), stdin);
-                strtok(nom, "\n");
-
-                int found = 0;
-                for (int i = 0; i < compteur; i++) {
-                    if (strcmp(c[i].name, nom) == 0) {
-                        found = 1;
-                        printf("New name: ");
-                        fgets(c[i].name, sizeof(c[i].name), stdin);
-                        strtok(c[i].name, "\n");
-                        printf("New phone: ");
-                        fgets(c[i].tele, sizeof(c[i].tele), stdin);
-                        strtok(c[i].tele, "\n");
-                        printf("New email: ");
-                        fgets(c[i].mail, sizeof(c[i].mail), stdin);
-                        strtok(c[i].mail, "\n");
-                        printf("Contact updated successfully.\n");
-                        break;
-                    }
-                }
-                if (!found) {
-                    printf("Contact not found.\n");
-                }
+                edit_contact(contacts, count);
                 break;
             }
             case 4: {
-                printf("========= Delete Contact =========\n");
-                char nom[50];
-                printf("Enter the name of the contact to delete: ");
-                fgets(nom, sizeof(nom), stdin);
-                strtok(nom, "\n");
-
-                int found = 0;
-                for (int i = 0; i < compteur; i++) {
-                    if (strcmp(c[i].name, nom) == 0) {
-                        found = 1;
-                        for (int j = i; j < compteur - 1; j++) {
-                            c[j] = c[j + 1];
-                        }
-                        compteur--;
-                        printf("Contact deleted successfully.\n");
-                        break;
-                    }
-                }
-                if (!found) {
-                    printf("Contact not found.\n");
-                }
+                delete_contact(contacts, &count);
                 break;
             }
             case 5: {
-                printf("========= Search Contact =========\n");
-                char nom[50];
-                printf("Enter the name of the contact to search: ");
-                fgets(nom, sizeof(nom), stdin);
-                strtok(nom, "\n");
-
-                int found = 0;
-                for (int i = 0; i < compteur; i++) {
-                    if (strcmp(c[i].name, nom) == 0) {
-                        found = 1;
-                        printf("Contact found:\n");
-                        printf("Name: %s\n", c[i].name);
-                        printf("Phone: %s\n", c[i].tele);
-                        printf("Email: %s\n", c[i].mail);
-                        break;
-                    }
-                }
-                if (!found) {
-                    printf("Contact not found.\n");
-                }
+                search_contact(contacts, count);
                 break;
             }
-            case 6:
-                printf("Total number of contacts: %d\n", compteur);
+            case 6: {
+                show_contact_count(count);
                 break;
-            case 7:
+            }
+            case 7: {
                 printf("Goodbye!\n");
                 break;
+            }
             default:
                 printf("Invalid choice!\n");
                 break;
         }
         system("pause");
-    } while (choix != 7);
+    } while (choice != 7);
 
     return 0;
 }
